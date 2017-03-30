@@ -98,7 +98,7 @@ dsl_definitions:
     download: resources/puppet.tar.gz
 
 node_templates:
-  apacheNode:
+  torqueNode:
     type: _NODE_SERVER_
     properties:
       name: 'Cloudify example web node'
@@ -111,25 +111,7 @@ node_templates:
       occi_config: *occi_configuration
       fabric_env:
         <<: *fabric_env
-        host_string: { get_attribute: [apacheNode, ip] } # req. by relationship ref.
-
-
-  apache:
-    type: _NODE_WEBSERVER_
-    instances:
-      deploy: 1
-    properties:
-      fabric_env:
-        <<: *fabric_env
-        host_string: { get_attribute: [apacheNode, ip] }
-      puppet_config:
-        <<: *puppet_config
-        manifests:
-          start: manifests/apache.pp
-    relationships:
-      - type: cloudify.relationships.contained_in
-        target: apacheNode
-
+        host_string: { get_attribute: [torqueNode, ip] } # req. by relationship ref.
 
   torqueServer:
     type: _NODE_WEBSERVER_ #TODO
@@ -143,7 +125,7 @@ node_templates:
           start: manifests/torque_server.pp
     relationships:
       - type: cloudify.relationships.contained_in
-        target: apacheNode
+        target: torqueNode
 
 #
 
@@ -217,7 +199,7 @@ outputs:
   endpoint:
     description: Web application endpoint
     value:
-      url: { concat: ['http://', { get_attribute: [apacheNode, ip] }] }
+      url: { concat: ['http://', { get_attribute: [torqueNode, ip] }] }
 
 
 # vim: set syntax=yaml

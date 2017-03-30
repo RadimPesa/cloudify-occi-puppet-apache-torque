@@ -1,9 +1,7 @@
 # Cloudify local storage
 **/local-storage
 
-apache/resources/ssh/
-torque/resources/ssh/
-saxs/resources/ssh/
+resources/ssh/
 
 puppet.tar.gz
 
@@ -11,3 +9,4 @@ cfy-example-blueprint.yaml
 cfy-example-inputs.yaml
 
 cfy.log
+.cloudify/
