@@ -11,7 +11,7 @@ class torque::server::config {
   Torque::Mom::Node  <| server_name == $::torque::server::server_name |>
 
   # create node resources from provided hash
-  ensure_resources(
+  ensure_resource(
     'torque_node',
     $::torque::server::nodes,
     { 'ensure' => 'present', })
